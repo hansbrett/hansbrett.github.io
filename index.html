@@ -42,7 +42,7 @@
             var input = '<label>>>> <input type="text" autofocus id="input" class="input" maxlength="40" onblur="this.focus()"></label>';
             $(document, "input").keydown(function(e) {
                 if(e.which == 13) {
-                    var v = $(".input").last().val();
+                    var v = $(".input").last().val().toLowerCase();
                     if(v) {
                         log.push(v);
                         i++;
