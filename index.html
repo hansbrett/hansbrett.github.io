@@ -46,7 +46,7 @@
                     var v = $(".input").last().val().toLowerCase();
                     if(v) {
                         log.push(v);
-                        i++;
+                        i = log.length-1;
                     }
                     if(v=="help"){
                         $("input").attr('disabled', true);
