@@ -6,7 +6,7 @@
     <style>
         @font-face {
             font-family: Lucida Console;
-            src: url('fonts/lucida-console.ttf');
+            src: url('lucida-console.ttf');
         }
         body{
             margin: 0;
@@ -35,9 +35,14 @@
         a:active{
             color: #ff6454;
         }
+        input::selection{
+            background-color: rgba(255, 255, 255, 1);
+            color: black;
+        }
     </style>
     <script>
         $(document).ready(function() {
+            var output = "";
             var log = new Array();
             var i = -1;
             var input = '<label>>>> <input type="text" autofocus id="input" class="input" maxlength="40" onblur="this.focus()"></label>';
@@ -62,13 +67,30 @@
                         $("input").attr('disabled', true);
                         $(".console").append('<br>wait a sec... (it can really take a long time. just wait)<br>');
                         c = $.get("http://vk-toolbelt.herokuapp.com/instaparse?gid="+v.split(" ")[2], function (data) {
-                            $(".console").append(data+'<br>'+input);
+                            output = data;
+                            $(".console").append(data+"<br><span>(Type 'copy' to copy output)</span><br>"+input);
                             $(".input").focus();
                         });
                     }
                     else if(v=="likes" || (v.split(" ").length==2 && v.split(" ")[0]=="likes" && v.split(" ")[1]=="-id")) {
                         $("input").attr('disabled', true);
                         $(".console").append('<br>Usage: likes -id &lt;group id/short name&gt;<br>' + input);
+                        $(".input").focus();
+                    }
+                    else if(v=="copy"){
+                        $("input").attr('disabled', true);
+                        output = output.replace(/&nbsp;/g, ' ').replace(/<br.*?>/g, '\u2028');
+                        function copyText() {
+                          const element = document.createElement('textarea');
+                          element.value = output;
+                          document.body.appendChild(element);
+                          element.focus();
+                          element.setSelectionRange(0, element.value.length);
+                          document.execCommand('copy');
+                          document.body.removeChild(element);
+                        }
+                        copyText();
+                        $(".console").append('<br>Copied to clipboard!<br>' + input);
                         $(".input").focus();
                     }
                     else if(v.split(" ").length==3 && v.split(" ")[0]=="likes" && v.split(" ")[1]=="-id") {
