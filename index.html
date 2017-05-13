@@ -79,15 +79,21 @@
                     }
                     else if(v=="copy"){
                         $("input").attr('disabled', true);
-                        output = output.replace(/&nbsp;/g, ' ').replace(/<br.*?>/g, '\u2028');
-                        function copyText() {
-                          const element = document.createElement('textarea');
-                          element.value = output;
-                          document.body.appendChild(element);
-                          element.focus();
-                          element.setSelectionRange(0, element.value.length);
-                          document.execCommand('copy');
-                          document.body.removeChild(element);
+                        if(output==""){
+                            $(".console").append('<br>Nothing to copy.<br>' + input);
+                            $(".input").focus();
+                        }
+                        else{
+                            output = output.replace(/&nbsp;/g, ' ').replace(/<br.*?>/g, '\u2028');
+                            function copyText() {
+                              const element = document.createElement('textarea');
+                              element.value = output;
+                              document.body.appendChild(element);
+                              element.focus();
+                              element.setSelectionRange(0, element.value.length);
+                              document.execCommand('copy');
+                              document.body.removeChild(element);
+                            }
                         }
                         copyText();
                         $(".console").append('<br>Copied to clipboard!<br>' + input);
