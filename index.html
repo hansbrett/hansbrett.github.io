@@ -55,7 +55,7 @@
                     }
                     if(v=="help"){
                         $("input").attr('disabled', true);
-                        $(".console").append('<br>instaaccs: get Instagram ids from group\'s members\' pages<br>likes: get top five comments for latest image posts in group (WIP)<br>about: some info about this webpage<br>help: you are here right now, aren\'t you?<br>'+input);
+                        $(".console").append('<br>instaaccs: get Instagram ids from group\'s members\' pages (web version can only parse up to 750 users)<br>likes: get top five comments for latest image posts in group (WIP)<br>about: some info about this webpage<br>help: you are here right now, aren\'t you?<br>'+input);
                         $(".input").focus();
                     }
                     else if(v=="instaaccs" || (v.split(" ").length==2 && v.split(" ")[0]=="instaaccs" && v.split(" ")[1]=="-id")) {
@@ -65,10 +65,13 @@
                     }
                     else if(v.split(" ").length==3 && v.split(" ")[0]=="instaaccs" && v.split(" ")[1]=="-id"){
                         $("input").attr('disabled', true);
-                        $(".console").append('<br>wait a sec... (it can really take a long time. just wait)<br>');
-                        c = $.get("http://vk-toolbelt.herokuapp.com/instaparse?gid="+v.split(" ")[2], function (data) {
+                        $(".console").append('<br>wait a sec... (it can take up to 30s. just wait)<br>');
+                        c = $.get("https://vk-toolbelt.herokuapp.com/instaparse?gid="+v.split(" ")[2], function (data) {
                             output = data;
                             $(".console").append(data+"<br><span>(Type 'copy' to copy output)</span><br>"+input);
+                            $(".input").focus();
+                        }).fail(function(){
+                            $(".console").append("<span>Sorry, but your request failed. Maybe there are >750 users in the group? </span><br>"+input);
                             $(".input").focus();
                         });
                     }
@@ -101,7 +104,7 @@
                     }
                     else if(v.split(" ").length==3 && v.split(" ")[0]=="likes" && v.split(" ")[1]=="-id") {
                         $("input").attr('disabled', true);
-                        $(".console").append('<br>You can see the top comments to posts in this group <a href="http://vk-toolbelt.herokuapp.com/likes?gid='+v.split(" ")[2]+'">here</a><br>' + input);
+                        $(".console").append('<br>You can see the top comments to posts in this group <a href="https://vk-toolbelt.herokuapp.com/likes?gid='+v.split(" ")[2]+'">here</a><br>' + input);
                         $(".input").focus();
                     }
                     else if(v=="about"){
