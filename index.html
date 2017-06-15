@@ -3,6 +3,7 @@
     <meta charset="utf-8">
     <title>VK Toolbelt (WIP)</title>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="xss-filters.min.js"></script>
     <style>
         @font-face {
             font-family: Lucida Console;
@@ -48,7 +49,7 @@
             var input = '<label>>>> <input type="text" autofocus id="input" class="input" maxlength="40" onblur="this.focus()"></label>';
             $(document, "input").keydown(function(e) {
                 if(e.which == 13) {
-                    var v = $(".input").last().val().toLowerCase();
+                    var v = xssFilters.inHTMLData($(".input").last().val().toLowerCase());
                     if(v) {
                         log.push(v);
                         i = log.length-1;
