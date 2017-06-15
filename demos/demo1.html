@@ -1,0 +1,96 @@
+<html>
+<head>
+  <meta charset="utf-8" />
+  <script src="https://code.jquery.com/jquery-latest.js"></script>
+  <style>
+  body{
+    background: linear-gradient(180deg, rgba(18, 18, 20, 0.89) 0%, #121213 100%);
+    height: auto;
+  }
+  .c{
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+
+  }
+  .bar{
+    width: 100px;
+    border: 2px solid gray;
+    height: 20px;
+    border-radius: 3px;
+    vertical-align: middle;
+    background: rgba(248,80,50,1);
+    background: linear-gradient(to right, rgba(248,80,50,1) 0%, rgba(246,41,12,1) 45%, rgba(72,255,0,1) 50%, rgba(246,41,12,1) 55%, rgba(231,56,39,1) 100%);
+  }
+  .stick{
+    margin-left: -100px;
+    position: relative;
+    left: 10px;
+    height: 20px;
+    background: #fff;
+    width: 1px;
+  }
+  .progress{
+    height: 100px;
+    border: 2px solid gray;
+    width: 20px;
+    border-radius: 3px;
+    vertical-align: middle;
+    transform: rotate(180deg);
+  }
+  .lvl{
+    position: relative;
+    background: dodgerblue;
+    height: 5px;
+  }
+  center{
+    margin-top: 25%;
+    margin-bottom: auto;
+  }
+  </style>
+  <script>
+  $(document).ready(function() {
+    var i = 0
+    var rtl = false;
+    setInterval(function() {
+
+      $('.stick').css('left', i.toString()+"px");
+      if(!rtl){
+      i++;
+    }
+    if (i==100){
+      rtl = true;
+    }
+    if (i == 0){
+      rtl = false;
+    }
+    if (rtl){
+      i--;
+    }
+  }, 7);
+  $('body').keypress(function(e) {
+    if (e.which == 32){
+      if (i >= 45 && i <= 55 && parseInt($('.lvl').css('height'))<100){
+        $('.lvl').css('height', parseInt($('.lvl').css('height'))+5+"px");
+      }
+      else if ((i < 45 || i > 55) && parseInt($('.lvl').css('height'))>5){
+        $('.lvl').css('height', parseInt($('.lvl').css('height'))-10+"px");
+      }
+    }
+  })
+  });
+  </script>
+</head>
+<body>
+  <center><div class="progress">
+    <div class="lvl">
+    </div>
+    <br />
+  </div>
+  <div class="bar">
+    <div class='stick'></div>
+    </div>
+  </div>
+</center>
+</body>
+</html>
