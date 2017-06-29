@@ -1,0 +1,12 @@
+<html>
+<head>
+<meta name="theme-color" content="#121214">
+<script src="https://code.jquery.com/jquery-latest.js"></script>
+<script>
+$(document).ready(function() {
+function getRandomColor() { var letters = '0123456789ABCDEF'; var color = '#'; for (var i = 0; i < 6; i++) { color += letters[Math.floor(Math.random() * 16)]; } return color; }
+setInterval(function() {$("meta[name=theme-color]").attr("content", getRandomColor());}, 500);
+});
+</script>
+</head>
+</html>
