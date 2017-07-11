@@ -50,7 +50,7 @@
   </style>
   <script>
   $(document).ready(function() {
-    var i = 0
+    var i = 0;
     var rtl = false;
     setInterval(function() {
 
@@ -75,6 +75,18 @@
       }
       else if ((i < 45 || i > 55) && parseInt($('.lvl').css('height'))>5){
         $('.lvl').css('height', parseInt($('.lvl').css('height'))-10+"px");
+      }
+      if ($('.lvl').css('height') == '35px'){
+          var audio = new Audio('assets/l.wav');
+          audio.play();
+      }
+      else if ($('.lvl').css('height') == '65px'){
+          var audio = new Audio('assets/m.wav');
+          audio.play();
+      }
+      else if ($('.lvl').css('height') == '100px'){
+          var audio = new Audio('assets/h.wav');
+          audio.play();
       }
     }
   })
